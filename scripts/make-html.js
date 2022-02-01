@@ -13,7 +13,7 @@ export function makeHtmlList(list) {
     const filename = listItem.split('.').splice(0, listItem.split('.').length-1);
 
     listString += `
-      <li href="./${filename}.html">${listItem}</li>
+      <li> <a href="./${filename}.html">${listItem}</a></li>
       `;
   }
 
