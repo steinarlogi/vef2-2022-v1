@@ -52,3 +52,40 @@ export function indexTemplate(fileList) {
 
   `;
 }
+
+export function makeStatsHtmlList(stats) {
+  //Skilum upplýsingum um skjalið ef þð var ekki tómt eða
+  //gallað. Annars bara paragraph sem segir að þetta sé gallað.
+
+  if(stats.status == 0) {
+    return `
+      <p>
+        Skjalið virðist hafa verið tómt eða skemmt. :(
+      </p>
+    `;
+  }
+
+  let htmlList = `
+    <ul>
+      <li><p>Stærsta gildi: ${stats.max}</p></li>
+      <li><p>Minnsta gildi: ${stats.min}</p></li>
+      <li><p>Summa talnanna: ${stats.sum}</p></li>
+      <li><p>Dreifni gagnanna: ${stats.variance}</p></li>
+      <li><p>Meðalgildi gagnanna: ${stats.mean}</p></li>
+      <li><p>Miðgildi gagnanna: ${stats.median}</p></li>
+      <li><p>Staðalfrávik gagnanna: ${stats.standardDeviation}</p></li>
+      <li><p>Tölurnar eru á bilinu [${stats.min}, ${stats.max}]</p></li>
+    </ul>
+  `;
+
+  return htmlList;
+}
+
+export function fileStatsTemplateHtml(statsHtml) {
+  return `
+    <h1>Tölfræðilegar niðurstöður úr skjalinu</h1>
+    <div class="stats-results">
+      ${statsHtml}
+    </div>
+  `;
+}

@@ -2,7 +2,7 @@ import { readFile, readdir, writeFile } from 'fs/promises';
 
 import { join } from 'path';
 
-import { makeHtml, makeHtmlList, indexTemplate } from './scripts/make-html.js';
+import { makeHtml, makeHtmlList, indexTemplate, makeStatsHtmlList, fileStatsTemplateHtml } from './scripts/make-html.js';
 import { parseData } from './scripts/parse-data.js';
 
 const PATH = './data';
@@ -20,16 +20,18 @@ async function main() {
     const data = await readFile(join(PATH, file));
 
     const stats = parseData(data.toString('utf-8'));
+
+    const outputPath = join(OUTPUTDIR, makeName(file));
+
+    const listHtml = makeStatsHtmlList(stats);
+
+    const resultsHtml = fileStatsTemplateHtml(listHtml);
+
+    await writeFile(outputPath, resultsHtml);
   }
 
   const outputPath = join(OUTPUTDIR, "index.html");
   await writeFile(outputPath, indexTemplate(filelistHtml));
-
-  for(const file of files) {
-    const path = join(OUTPUTDIR, makeName(file));
-    console.log(path);
-    await writeFile(path, "Hello world!");
-  }
 }
 
 main().catch((err) => console.log(err));
