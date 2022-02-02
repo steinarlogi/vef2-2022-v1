@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently npm:test npm:sync",
     "test": "jest --coverage --watchAll",
-    "sync": "browser-sync --server --files index.html"
+    "sync": "browser-sync --server --files dist/index.html"
   },
   "author": "",
   "license": "ISC",
