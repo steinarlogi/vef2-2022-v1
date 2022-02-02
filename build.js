@@ -23,9 +23,9 @@ async function main() {
 
     const outputPath = join(OUTPUTDIR, makeName(file));
 
-    const listHtml = makeStatsHtmlList(stats);
+    const statsListHtml = makeStatsHtmlList(stats);
 
-    const resultsHtml = fileStatsTemplateHtml(listHtml);
+    const resultsHtml = fileStatsTemplateHtml(statsListHtml, data.toString('utf-8'));
 
     await writeFile(outputPath, resultsHtml);
   }

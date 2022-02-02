@@ -81,11 +81,18 @@ export function makeStatsHtmlList(stats) {
   return htmlList;
 }
 
-export function fileStatsTemplateHtml(statsHtml) {
+export function fileStatsTemplateHtml(statsHtml, content) {
   return `
     <h1>Tölfræðilegar niðurstöður úr skjalinu</h1>
     <div class="stats-results">
       ${statsHtml}
+    </div>
+
+    <h2>Innihald skjalsins eins og því var hlaðið upp má sjá hér að neðan</h2>
+    <div class="file-content">
+      <p>
+        ${content}
+      </p>
     </div>
   `;
 }
