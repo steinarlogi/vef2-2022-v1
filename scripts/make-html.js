@@ -83,7 +83,7 @@ export function makeStatsHtmlList(stats) {
 
 export function fileStatsTemplateHtml(statsHtml, content) {
   return `
-    <h1>Tölfræðilegar \nniðurstöður úr skjalinu</h1>
+    <h1>Tölfræðilegar niðurstöður úr skjalinu</h1>
     <div class="stats-results">
       ${statsHtml}
     </div>
