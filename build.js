@@ -25,7 +25,7 @@ async function main() {
 
     const statsListHtml = makeStatsHtmlList(stats);
 
-    const resultsHtml = fileStatsTemplateHtml(statsListHtml, data.toString('utf-8').replace('\n', '<br>'));
+    const resultsHtml = fileStatsTemplateHtml(statsListHtml, data.toString('utf-8').replaceAll('\n', '<br>'));
 
     await writeFile(outputPath, resultsHtml);
   }
