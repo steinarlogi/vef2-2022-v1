@@ -1,0 +1,38 @@
+:root {
+  --nr-of-columns: 12;
+  --space-between: 20px;
+}
+
+.grid {
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0 calc(-1 * var(--space-between) / 2);
+}
+
+.col {
+  padding: calc(var(--space-between) / 2);
+  margin: 0;
+}
+
+.col-3 {
+  width: calc(3 * (100% / var(--nr-of-columns)));
+}
+
+.col-4 {
+  width: calc(4 * (100% / var(--nr-of-columns)));
+}
+
+.offset-1 {
+  margin-left: calc(100% / var(--nr-of-columns));
+}
+
+@media screen and (max-width: 600px) {
+  .col-12-s {
+    width: 100%;
+  }
+}

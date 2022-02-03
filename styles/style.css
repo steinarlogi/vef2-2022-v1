@@ -14,5 +14,34 @@ body {
 }
 
 main {
-  background-color: #EEE;
+  margin-bottom: 30px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.stat-card {
+  align-items: center;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 150px;
+}
+
+main h2 {
+  text-align: center;
+}
+
+.file-content {
+  background-color: #fff;
+  border: 1px solid #bbb;
+  border-radius: 15px;
+  margin: auto;
+  max-height: 400px;
+  max-width: 400px;
+  overflow: auto;
 }
