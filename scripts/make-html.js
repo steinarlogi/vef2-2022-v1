@@ -29,8 +29,8 @@ export function indexTemplate(fileList) {
         </header>
 
         <main>
-          <p>Smelltu á skráarheiti til þess að sjá upplýsingar um skránna
           ${fileList}
+          <p>Smelltu á skráarheiti til þess að sjá upplýsingar um skránna
         </main>
 
         <footer>

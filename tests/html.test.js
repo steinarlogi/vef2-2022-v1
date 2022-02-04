@@ -32,8 +32,8 @@ describe('html test', () => {
         </header>
 
         <main>
-          <p>Smelltu á skráarheiti til þess að sjá upplýsingar um skránna
           ${content}
+          <p>Smelltu á skráarheiti til þess að sjá upplýsingar um skránna
         </main>
 
         <footer>

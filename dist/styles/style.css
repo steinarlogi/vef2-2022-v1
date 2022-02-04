@@ -18,9 +18,16 @@ main {
 }
 
 ul {
+  display: flex;
+  justify-content: space-between;
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+li {
+  font-size: 20px;
+  padding: 10px;
 }
 
 .stat-card {
