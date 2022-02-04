@@ -1,5 +1,3 @@
-import { readFile, readdir, writeFile } from 'fs/promises';
-
 import { join } from 'path';
 
 import {
@@ -9,37 +7,34 @@ import {
   fileStatsTemplateHtml,
 } from './scripts/make-html.js';
 import { parseData } from './scripts/parse-data.js';
+import { calculateStats } from './scripts/calculate-stats.js';
+import { readFolder, getStringFromFile, writeToHtmlFile } from './scripts/read-write.js';
 
 const PATH = './data';
 const OUTPUTDIR = './dist';
 
-function makeName(name) {
-  return `${name.split('.').splice(0, name.split('.').length - 1)}.html`;
-}
-
 async function main() {
-  const files = await readdir(PATH);
+  const files = await readFolder(PATH);
   const filelistHtml = makeHtmlList(files);
 
+  await writeToHtmlFile(OUTPUTDIR, 'index.txt', indexTemplate(filelistHtml));
+
   for (const file of files) {
-    const data = await readFile(join(PATH, file));
-
-    const stats = parseData(data.toString('utf-8'));
-
-    const outputPath = join(OUTPUTDIR, makeName(file));
+    const data = await getStringFromFile(PATH, file);
+    
+    const numberList = parseData(data);
+    const stats = calculateStats(numberList);
 
     const statsListHtml = makeStatsHtmlList(stats);
 
     const resultsHtml = fileStatsTemplateHtml(
       statsListHtml,
-      data.toString('utf-8').replaceAll('\n', '<br>'),
+      data.replaceAll('\n', '<br>'),
     );
-    
-    await writeFile(outputPath, resultsHtml);
+
+    await writeToHtmlFile(OUTPUTDIR, file, resultsHtml);
   }
 
-  const outputPath = join(OUTPUTDIR, 'index.html');
-  await writeFile(outputPath, indexTemplate(filelistHtml));
 }
 
 main().catch((err) => console.log(err));

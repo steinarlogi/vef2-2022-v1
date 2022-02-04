@@ -1,19 +1,22 @@
-export function makeHtmlList(list) {
-  let listString = '<ul>';
+import { describe, expect, it } from '@jest/globals';
 
-  for (const listItem of list) {
-    const filename = listItem.split('.').splice(0, listItem.split('.').length - 1);
+import {
+  makeHtmlList,
+  indexTemplate,
+  makeStatsHtmlList,
+  fileStatsTemplateHtml,
+} from '../scripts/make-html.js';
 
-    listString += `<li><a href="./${filename}.html">${listItem}</a></li>`;
-  }
+describe('html test', () => {
+  it('Makes a html list from a js list', () => {
+    const list = ['1.txt', '2.txt'];
+    const results = makeHtmlList(list);
 
-  listString += '</ul>';
-
-  return listString;
-}
-
-export function indexTemplate(fileList) {
-  return `
+    expect(results).toBe(`<ul><li><a href="./1.html">1.txt</a></li><li><a href="./2.html">2.txt</a></li></ul>`);
+  }),
+  it('makes the index template', () => {
+    const content = 'content';
+    const expected = `
     <!doctype html>
     <html>
       <head>
@@ -30,7 +33,7 @@ export function indexTemplate(fileList) {
 
         <main>
           <p>Smelltu á skráarheiti til þess að sjá upplýsingar um skránna
-          ${fileList}
+          ${content}
         </main>
 
         <footer>
@@ -40,21 +43,24 @@ export function indexTemplate(fileList) {
 
     </html>
     `;
-}
 
-export function makeStatsHtmlList(stats) {
-  // Skilum upplýsingum um skjalið ef þð var ekki tómt eða
-  // gallað. Annars bara paragraph sem segir að þetta sé gallað.
+      const results = indexTemplate(content);
 
-  if (stats.status === 0) {
-    return `
-      <p>
-        Skjalið virðist hafa verið tómt eða skemmt. :(
-      </p>
-    `;
-  }
+      expect(results).toBe(expected);
+  }),
+  it('makes the stats html if the file has contents', () => {
+    const stats = {
+      status: 1,
+      max: 2,
+      min: 3,
+      sum: 4,
+      variance: 5,
+      mean: 6,
+      median: 7,
+      standardDeviation: 8,
+    };
 
-  const htmlList = `
+    const expected = `
     <div class="grid">
       <div class="row">
         <div class="col col-4 col-12-s">
@@ -105,11 +111,30 @@ export function makeStatsHtmlList(stats) {
     </div>
   `;
 
-  return htmlList;
-}
+    const results = makeStatsHtmlList(stats);
 
-export function fileStatsTemplateHtml(statsHtml, content) {
-  return `
+    expect(results).toBe(expected);
+  }),
+  it('makes the stats html if the file has no contents', () => {
+    const stats = {
+      status: 0,
+    };
+
+    const expected = `
+      <p>
+        Skjalið virðist hafa verið tómt eða skemmt. :(
+      </p>
+    `;
+
+    const results = makeStatsHtmlList(stats);
+
+    expect(results).toBe(expected);
+  }),
+  it('puts the file stats and file contents in the html template', () => {
+    const content1 = 'content1';
+    const content2 = 'content2';
+
+    const expected = `
     <!doctype html>
     <html>
       <head>
@@ -126,17 +151,22 @@ export function fileStatsTemplateHtml(statsHtml, content) {
         </header>
         <main>
           <div class="stats-results">
-            ${statsHtml}
+            ${content1}
           </div>
 
           <h2>Innihald skjalsins eins og því var hlaðið upp má sjá hér að neðan</h2>
           <div class="file-content">
             <p>
-              ${content}
+              ${content2}
             </p>
           </div>
         </main>
       </body
     </html>
   `;
-}
+
+    const results = fileStatsTemplateHtml(content1, content2);
+
+    expect(results).toBe(expected);
+  })
+});
