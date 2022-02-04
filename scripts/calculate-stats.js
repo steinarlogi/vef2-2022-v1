@@ -1,5 +1,4 @@
 export function calculateStats(numberList) {
-
   // start by sorting list.
   numberList.sort((a, b) => a - b);
 
@@ -49,5 +48,4 @@ export function calculateStats(numberList) {
     median,
     standardDeviation: stddev,
   };
-
 }

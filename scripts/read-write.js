@@ -7,7 +7,7 @@ export function makeHtmlName(name) {
 
 export async function readFolder(path) {
   const files = await readdir(path);
-  return files
+  return files;
 }
 
 export async function getStringFromFile(path, file) {

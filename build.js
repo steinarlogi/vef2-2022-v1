@@ -1,5 +1,3 @@
-import { join } from 'path';
-
 import {
   makeHtmlList,
   indexTemplate,
@@ -20,8 +18,8 @@ async function main() {
   await writeToHtmlFile(OUTPUTDIR, 'index.txt', indexTemplate(filelistHtml));
 
   for (const file of files) {
-    const data = await getStringFromFile(PATH, file);
-    
+    const data = await getStringFromFile(PATH, file); // eslint-disable-line
+
     const numberList = parseData(data);
     const stats = calculateStats(numberList);
 
@@ -32,9 +30,8 @@ async function main() {
       data.replaceAll('\n', '<br>'),
     );
 
-    await writeToHtmlFile(OUTPUTDIR, file, resultsHtml);
+    await writeToHtmlFile(OUTPUTDIR, file, resultsHtml); // eslint-disable-line
   }
-
 }
 
 main().catch((err) => console.log(err));
